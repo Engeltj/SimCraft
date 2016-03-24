@@ -2,8 +2,6 @@ package com.antgaming.simcraft;
 
 import com.antgaming.simcraft.datastore.BukkitDB;
 import com.antgaming.simcraft.datastore.DataStore;
-import com.antgaming.simcraft.player.Sim;
-import com.avaje.ebean.EbeanServer;
 import java.io.File;
 import org.bukkit.Bukkit;
 
@@ -31,7 +29,7 @@ public class SimUtil {
     public static DataStore getDatabase() {
         SimCraft sc = (SimCraft) Bukkit.getServer().getPluginManager().getPlugin("SimCraft");
         if (db == null)
-            db = (DataStore) new BukkitDB(sc.getDatabase());
+            db = new DataStore(sc.getDatabase());
         return db;
     };
     

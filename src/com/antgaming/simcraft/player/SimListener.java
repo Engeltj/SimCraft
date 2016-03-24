@@ -1,5 +1,6 @@
 package com.antgaming.simcraft.player;
 
+import com.antgaming.simcraft.SimHUD;
 import com.antgaming.simcraft.SimUtil;
 import java.util.List;
 import org.bukkit.entity.HumanEntity;
@@ -11,6 +12,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.world.WorldSaveEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -21,6 +23,14 @@ import org.bukkit.inventory.PlayerInventory;
  * @author tim
  */
 public class SimListener implements Listener {
+    
+    @EventHandler(priority=EventPriority.NORMAL)
+    public void onPlayerJoin(PlayerJoinEvent event){
+        Player p = event.getPlayer();
+        Sims.loadSim(p.getUniqueId());
+        new SimHUD(p);
+        p.sendMessage("We are here.");
+    }
     
     @EventHandler(priority= EventPriority.NORMAL)
     public void onSignChange(SignChangeEvent event){
@@ -57,7 +67,7 @@ public class SimListener implements Listener {
         if (event.getInventory() instanceof PlayerInventory) {
             Player p = (Player) event.getInventory().getHolder();
             Sim s = Sims.getSim(p.getUniqueId());
-            if (s.isInBuildMode()) {
+            if (s.getBuildMode() == true) {
                 
             }
         }

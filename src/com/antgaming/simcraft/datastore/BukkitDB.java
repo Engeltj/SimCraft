@@ -18,7 +18,7 @@ public class BukkitDB {
     
     public Sim loadSim(UUID uniqueId) {
         Sim s = db.find(Sim.class)
-          .where().eq("uuid", uniqueId.toString())
+          .where().eq("id", uniqueId.toString())
           .findUnique();
         return s;
     }

@@ -1,15 +1,15 @@
 package com.antgaming.simcraft.datastore;
 
-import com.antgaming.simcraft.player.Sim;
-import java.util.UUID;
+import com.avaje.ebean.EbeanServer;
 
 /**
  *
  * @author tim
  */
-public interface DataStore {
-    public Sim loadSim(UUID uniqueId);
-    public Sim loadSim(String name);
-    public boolean saveSim(Sim s);
+public class DataStore extends BukkitDB {
+
+    public DataStore(EbeanServer db) {
+        super(db);
+    }
 
 }

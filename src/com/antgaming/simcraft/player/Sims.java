@@ -16,28 +16,29 @@ public class Sims {
     private static Map<UUID, Sim> sims = new HashMap<UUID, Sim>();
     
     
-    public static Sim getSim(String name) {
-        Sim s = null;
-        Player p = Bukkit.getServer().getPlayer(name);
-        if (p != null) {
-            s = getSim(p.getUniqueId());
+//    public static Sim getSim(String name) {
+//        Sim s = null;
+//        Player p = Bukkit.getServer().getPlayer(name);
+//        if (p != null) {
+//            s = getSim(p.getUniqueId());
+//        }
+//        return s;
+//    }
+    
+    public static Sim getSim(UUID uniqueId) {
+        Sim s = sims.get(uniqueId);
+        if (s == null) {
+            loadSim(uniqueId);
+            s = sims.get(uniqueId);
         }
         return s;
     }
     
-    public static Sim getSim(UUID uniqueId) {
-        Sim s = sims.get(uniqueId);
-        if (s == null)
-            s = loadSim(uniqueId);
-        return s;
-    }
-    
-    private static Sim loadSim(UUID uniqueId) {
+    public static void loadSim(UUID uniqueId) {
         DataStore db = SimUtil.getDatabase();
-        Sim s = db.loadSim(uniqueId);
-        if (s == null)
-            s = createSim(uniqueId);
-        return s;
+        if (sims.get(uniqueId) == null)
+            if (db.loadSim(uniqueId) == null)
+                sims.put(uniqueId, createSim(uniqueId));
     }
     
     private static Sim createSim(UUID uniqueId) {

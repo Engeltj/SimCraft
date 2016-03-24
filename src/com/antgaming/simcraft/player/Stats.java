@@ -1,7 +1,8 @@
 package com.antgaming.simcraft.player;
 
+import java.io.Serializable;
 import java.util.HashMap;
-import javax.persistence.CascadeType;
+import java.util.Map;
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToMany;
 import javax.persistence.MapKey;
@@ -10,18 +11,25 @@ import javax.persistence.MapKey;
  * @author tim
  */
 @Embeddable
-public class Stats {
+public class Stats implements Serializable {
     
-    @ManyToMany(mappedBy = "stats")
-    @MapKey(name = "name")
-    HashMap<String, Stat> stats = new HashMap<String, Stat>();
+    Map<String, Stat> stats;
     
     public Stats () {
+        this.stats = new HashMap<String, Stat>();
         stats.put("Hunger", new Stat("Hunger"));
         stats.put("Energy", new Stat("Energy"));
         stats.put("Fun", new Stat("Fun"));
         stats.put("Social", new Stat("Social"));
         stats.put("Hygiene", new Stat("Hygiene"));
+    }
+    
+    public Map<String, Stat> getStats() {
+        return this.stats;
+    }
+    
+    public void setStats() {
+        
     }
     
 }

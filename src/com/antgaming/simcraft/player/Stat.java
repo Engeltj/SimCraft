@@ -11,10 +11,14 @@ import javax.persistence.Id;
 public class Stat {
     @Id
     String name;
-    Integer value;
+    int value;
     
     public Stat(String name) {
         this.name = name;
         this.value = 100;
+    }
+    
+    public int getValue() {
+        return value;
     }
 }
