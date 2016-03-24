@@ -20,6 +20,10 @@ public final class SimCraft extends JavaPlugin {
 
     }
     
+    public void save() {
+        
+    }
+    
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         return true;
